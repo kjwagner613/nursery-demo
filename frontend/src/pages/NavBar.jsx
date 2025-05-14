@@ -7,9 +7,11 @@ const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
 
   const handleSignOut = () => {
-    localStorage.removeItem("token");
-    setUser(null);
+    sessionStorage.removeItem("user"); // ✅ Clears user session data
+    localStorage.removeItem("token"); // ✅ Removes token
+    setUser(null); // ✅ Clears user state
   };
+
 
   return (
     <nav>
@@ -17,7 +19,7 @@ const NavBar = () => {
         <>
           <div className="welcome"></div>
           <ul className="nav-links">
-            <li><Link to="/">Dashboard</Link></li>
+            <li><Link to="/pages/dashboard">Dashboard</Link></li>
             <li><Link to="/pages/about">About Us</Link></li>
             <li><Link to="/pages/services">Services</Link></li>
             <li><Link to="/pages/products">Products</Link></li>

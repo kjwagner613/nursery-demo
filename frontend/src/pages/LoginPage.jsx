@@ -44,16 +44,25 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="auth-container">
+    <>
       <h2>Login</h2>
-      {error && <p className="error">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-        <button type="submit">Login</button>
-      </form>
-      <p>Don't have an account? <a href="/pages/registerpage">Register</a></p>
-    </div>
+      <div className="auth-container">
+        {error && <p className="error">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="login-grid">
+            <div className="login-item">
+              <label htmlFor="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="Email" onChange={handleChange} required />
+            </div>
+            <div className="login-item">
+              <label htmlFor="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Password" onChange={handleChange} required />
+            </div></div>
+          <button className="button-1" type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="/pages/registerpage">Register</a></p>
+      </div>
+    </>
   );
 };
 

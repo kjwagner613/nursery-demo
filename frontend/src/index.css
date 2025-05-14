@@ -4,9 +4,14 @@
   --background-cream: #fefbf3;
   --text-color-dark: #213547;
   --text-color-light: #e6e9bf;
+  --highlight-color-1: rgb(60, 78, 178);
   --border-radius: 8px;
   --font-main: "Playfair Display", serif;
   --font-secondary: "Lato", sans-serif;
+}
+p {
+  text-align: justify;
+
 }
 
 body {
@@ -34,21 +39,127 @@ a:hover {
     --text-color-dark: var(--text-color-light);
   }
 }
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+/* button {
+  border-radius: 5px;
+  margin-top: 10px;
+  border: 3px solid var(--text-color-dark);
+  padding: 0.2em .25em;
+  font-size: 1.2em;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font-family: var(---font-secondary);
+  background-color: var(--primary-green);
   cursor: pointer;
   transition: border-color 0.25s;
+  width: 125px;
+  align-self: center;
+
 }
+
 button:hover {
   border-color: #646cff;
+  border-radius: 8px;
+  background-color: var(--highlight-color-1)
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+} */
+
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15vh;
 }
+
+/* grids for login and registration pages */
+.login-grid {
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+
+}
+
+
+.login-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+ 
+
+.login-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.register-btn {
+  text-align: right;
+  text-decoration: none;
+  color: #007bff;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  align-self: center;
+}
+
+
+
+button {
+  margin-top: 20px;
+  --b: 3px;   /* border thickness */
+  --s: .45em; /* size of the corner */
+  --color: #373B44;
+  
+  padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+  color: var(--color);
+  --_p: var(--s);
+  background:
+    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
+    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+  transition: .3s linear, color 0s, background-color 0s;
+  outline: var(--b) solid #0000;
+  outline-offset: .6em;
+  font-size: 16px;
+
+  border: 0;
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button:hover,
+button:focus-visible{
+  --_p: 0px;
+  outline-color: var(--color);
+  outline-offset: .05em;
+}
+
+.button:active {
+  background: var(--color);
+  color: #fff;
+}
+
+.widget-container {
+  display: flex;
+  flex-direction: row; /* default, but explicit */
+  gap: 2rem;           /* space between widgets */
+  justify-content: center; /* optional: center them horizontally */
+  align-items: flex-start;  /* optional: align to top */
+
+}
+
+
+.weather-widget {
+position: relative;
+top: 0vh;
+right: 0vw;
+}
+
