@@ -1,7 +1,7 @@
 :root {
   --primary-green: #6B8E23;
   --secondary-brown: #8B4513;
-  --background-cream: #fefbf3;
+  --background-cream: #e2c77e;
   --text-color-dark: #213547;
   --text-color-light: #e6e9bf;
   --highlight-color-1: rgb(60, 78, 178);
@@ -24,10 +24,13 @@ body {
 }
 
 a {
+  font-family: var(--font-secondary);
+  font-size: .9em;
   font-weight: 500;
-  color: var(--primary-green);
+  color: var(--text-color-dark);
   text-decoration: inherit;
 }
+
 a:hover {
   color: var(--secondary-brown);
 }
@@ -38,33 +41,41 @@ a:hover {
     --background-cream: #242424;
     --text-color-dark: var(--text-color-light);
   }
-}
-/* button {
-  border-radius: 5px;
-  margin-top: 10px;
-  border: 3px solid var(--text-color-dark);
-  padding: 0.2em .25em;
-  font-size: 1.2em;
-  font-weight: 500;
-  font-family: var(---font-secondary);
-  background-color: var(--primary-green);
-  cursor: pointer;
-  transition: border-color 0.25s;
-  width: 125px;
-  align-self: center;
+} 
 
+.worker2 {
+  position: relative;
+  transform: scale(0.8);
 }
 
-button:hover {
-  border-color: #646cff;
+.worker3 {
+  position: relative;
+  transform: scale(0.8);
+}
+.workers {
+  position: relative;
+
+}
+/* Add to index.css */
+.about-images {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3vh;
+  
+}
+.worker2,
+.worker3 {
+  max-width: 120px;   /* smaller width for portrait */
+  height: 220px;      /* fixed height for portrait */
+  object-fit: cover;  /* crop if needed, keeps aspect */
   border-radius: 8px;
-  background-color: var(--highlight-color-1)
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
 
+
+.about-images img {
+   border-radius: 8px; /* optional, for rounded corners */
+   margin: 0 20px; /* space between images */
+}
 
 .auth-container {
   display: flex;
@@ -108,6 +119,19 @@ button:focus-visible {
   cursor: pointer;
   align-self: center;
 }
+
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  gap: 15rem;
+  justify-content: center;
+  text-align: justify;
+  margin-top: 5vh;
+  border: 2px solid var(--text-color-dark);
+  border-radius: var(--border-radius);
+  transform: height 0.5s ease-in-out;
+}
+
 
 
 
