@@ -47,27 +47,44 @@ export { CloudAnim };
 
 function About() {
   return (
-    <div><FluffyCloud />
-      <h1>Company Description</h1>
-      <SunMoon /> 
-      <p>At Sierra-Cascade Nursery, Inc. (SCN), our core purpose is to provide meaningful livelihoods for talented and hardworking individuals and their families. We are dedicated to serving our customers with high-quality products while stewarding the land in a way that is both beautiful and sustainable.
-        SCN is built on three fundamental values:
-        - Work & Life Balance – Supporting our employees as they strive for both professional excellence and personal well-being.
-        - Mutual Respect & Community – Fostering a collaborative environment that values fairness, teamwork, and shared success.
-        - Passion & Excellence – Committing to doing our best, always pushing forward with integrity and innovation.
-        Our continued success is driven by a strategic focus on:
-        - Advancing innovation in materials, processes, and scientific practices.
-        - Cultivating a culture of service, both within our team and among our partners.
-        - Staying true to our growing business, ensuring sustainability and long-term impact.
-        - Acting with responsibility and integrity, always striving to do what’s right.
-      </p><FluffyCloud />
-       <div className="about-images"><FluffyCloud /><FluffyCloud /><FluffyCloud /><FluffyCloud />
-      <img className="worker2" src={workersImg2} alt="Worker2" />
-      <img className="workers" src={workersImg} alt="Workers" />
-      <img className="worker3" src={workersImg3} alt="Worker3" />
-      </div><FluffyCloud /><FluffyCloud /><FluffyCloud />
+    <div>
+<FluffyCloud />
+<h1
+  style={{ fontFamily: 'var(--font-main)', fontSize: 'var(--font-size-titles)' }}
+  className="my-8"
+>
+  Company Description
+</h1>
+<SunMoon />
+<div className="about-company">
+        <p className="self-stretch">
+          At Sierra-Cascade Nursery, Inc. (SCN), our core purpose is to provide meaningful livelihoods for talented and hardworking individuals and their families. We are dedicated to serving our customers with high-quality products while stewarding the land in a way that is both beautiful and sustainable.
+          SCN is built on three fundamental values:
+          - Work & Life Balance – Supporting our employees as they strive for both professional excellence and personal well-being.
+          - Mutual Respect & Community – Fostering a collaborative environment that values fairness, teamwork, and shared success.
+          - Passion & Excellence – Committing to doing our best, always pushing forward with integrity and innovation.
+          Our continued success is driven by a strategic focus on:
+          - Advancing innovation in materials, processes, and scientific practices.
+          - Cultivating a culture of service, both within our team and among our partners.
+          - Staying true to our growing business, ensuring sustainability and long-term impact.
+          - Acting with responsibility and integrity, always striving to do what’s right.
+        </p>
+   
+      </div>
+      <FluffyCloud />
+      <div className="about-images">
+        <FluffyCloud />
+        <FluffyCloud />
+        <FluffyCloud />
+        <FluffyCloud />
+        <img className="worker2" src={workersImg2} alt="Worker2" />
+        <img className="workers" src={workersImg} alt="Workers" />
+        <img className="worker3" src={workersImg3} alt="Worker3" />
+      </div>
+      <FluffyCloud />
+      <FluffyCloud />
+      <FluffyCloud />
     </div>
-
   );
 }
 

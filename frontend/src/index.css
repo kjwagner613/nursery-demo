@@ -1,3 +1,6 @@
+@import "tailwindcss";
+
+
 :root {
   --primary-green: #6B8E23;
   --secondary-brown: #8B4513;
@@ -8,27 +11,7 @@
   --border-radius: 8px;
   --font-main: "Playfair Display", serif;
   --font-secondary: "Lato", sans-serif;
-}
-p {
-  text-align: justify;
-
-}
-
-body {
-  font-family: var(--font-main);
-  background-color: var(--background-cream);
-  color: var(--text-color-light);
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-a {
-  font-family: var(--font-secondary);
-  font-size: .9em;
-  font-weight: 500;
-  color: var(--text-color-dark);
-  text-decoration: inherit;
+  --font-size-titles: 2.5rem;
 }
 
 a:hover {
@@ -187,3 +170,106 @@ top: 0vh;
 right: 0vw;
 }
 
+.service-grid {
+  display: flexbox;
+ 
+  gap: 2rem;
+  justify-items: center; /* centers items in each grid cell */
+
+}
+.service-item {
+  display: grid;
+}
+
+
+
+
+.product-page {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+
+.product-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.product-image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin-right: 20px;
+}
+
+.product-details {
+  width: 50%;
+}
+
+.product-details h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.product-details p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.product-details label {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.product-details select {
+  font-size: 18px;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+
+.product-details p.total-price{
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.product-details button {
+  font-size: 18px;
+  padding: 10px 20px;
+  background-color: lightblue;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-details button:hover {
+  background-color: deepskyblue;
+}
+
+@media screen and (max-width: 767px) {
+  .product-page {
+    flex-direction: column;
+  }
+
+  .product-image-container,
+  .product-details {
+    width: 100%;
+  }
+
+  .product-image-container img {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .product-details button {
+    width: 100%;
+  }
+
+  .product-details select#qty-select {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
