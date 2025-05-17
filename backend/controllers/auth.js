@@ -11,8 +11,17 @@ export const registerUser = async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: "User already exists" });
+    try {
+      const existingUser = await User.findOne({ email})
+      if (existingUser) return res.status(400).json({ message: "User already exists"})
+    } catch (err) {
+      res.status(500).json({ message: "Error finding existing user", error: err.message})
+    }
+    try {
+      await newUser.save()
+    } catch (err) {
+      res.status(500).json({ message: "Error saving new user", error: err.message})
+    }
 
     // Hash password before saving
     const salt = await bcrypt.genSalt(10);

@@ -77,9 +77,9 @@ function About() {
         <FluffyCloud />
         <FluffyCloud />
         <FluffyCloud />
-        <img className="worker2" src={workersImg2} alt="Worker2" />
-        <img className="workers" src={workersImg} alt="Workers" />
-        <img className="worker3" src={workersImg3} alt="Worker3" />
+        <img className="worker2"  style={{ marginTop: '60px' }} src={workersImg2} alt="Worker2" />
+        <img className="workers" style={{ marginTop: '30px' }} src={workersImg} alt="Workers" />
+        <img className="worker3"  style={{ marginTop: '60px' }}  src={workersImg3} alt="Worker3" />
       </div>
       <FluffyCloud />
       <FluffyCloud />

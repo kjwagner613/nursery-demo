@@ -15,7 +15,14 @@ app.use(express.json()); // ✅ Keep only ONE json parser
 app.use("/api/auth", authRoutes); // ✅ Handles authentication
 app.use("/api", apiRoutes); // ✅ General API routes
 
-mongoose.connect(process.env.MONGODB_URI)
+
+console.log("Using MongoDB URI:", process.env.MONGODB_URI);
+
+const uri = "mongodb+srv://keviejoe13@icloud.com:kevJoe<3IlanaJo@nurserydemo.eovu9m6.mongodb.net/ProductCatalog?retryWrites=true&w=majority&appName=NurseryDemo"
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
   .then(() => {
     console.log(`✅ MongoDB Connected ${mongoose.connection.name}.`);
   })

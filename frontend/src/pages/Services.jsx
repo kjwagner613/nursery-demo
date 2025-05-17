@@ -46,8 +46,7 @@ const Services = () => {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Services />);
+
 
 export default Services;
 

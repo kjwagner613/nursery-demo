@@ -9,7 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Dashboard from "./pages/Dashboard.jsx";
 import About from "./pages/About";
-import Products from "./pages/Products";
+import Products from "./Products.jsx";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import NavBar from "./pages/NavBar";
@@ -22,7 +22,7 @@ const ProtectedRoute = ({ children }) => {
 };
 
 // 🔹 Wrap Dashboard route inside `ProtectedRoute`
-<Route path="/pages/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+{/* <Route path="/pages/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
 
 
 function App() {
@@ -50,15 +50,16 @@ function App() {
       </div>
      
 
-     <div className="footer-container">
+     <div className="footer-container" style={{ display: "flex", justifyContent: "space-between", padding: "20px" }}>
       <div className="footer-item">
+          <div className="footer-item p-8" >
       <p>Serving the community since 1955</p>
       <p>Tulelake, Calfornia Phone: <a href="tel:15355551234">(535) 555-1234</a></p>
       <p>Macdoel, California <a href="tel:15355551234">(535) 555-1234</a></p>
       <p>Susanville, California  <a href="tel:15302546867">(530) 254-6867</a></p>
-      </div>
+      </div></div>
 
-      <div className="footer-item">
+      <div className="footer-item p-8" >
       <p>Specializing In:</p>
       <p>Trees and Large Growth boundaries</p>
       <p>Commercial Nursery Supply</p>

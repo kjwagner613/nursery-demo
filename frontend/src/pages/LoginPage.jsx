@@ -45,7 +45,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <h2>Login</h2>
+      <h2 className="loginpage" style={{ fontFamily: "Playfair Display", fontSize: "21px" }}>Login  Page</h2>
       <div className="auth-container">
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
