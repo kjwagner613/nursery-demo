@@ -38,7 +38,8 @@ function App() {
         <Route path="/pages/about" element={<About />} />
         <Route path="/pages/products" element={<Products />} />
         <Route path="/pages/services" element={<Services />} />
-        <Route path="/pages/contact" element={<ProtectedRoute><Contact /></ProtectedRoute>} />
+        <Route path="/pages/contact" element={<Contact />} />
+        {/* <Route path="/pages/contact" element={<ProtectedRoute><Contact /></ProtectedRoute>} /> */}
         <Route path="/pages/dashboard" element={<Dashboard />} />
         <Route path="*" element={<Navigate to={token ? "/pages/dashboard" : "/pages/loginpage"} />} />
       </Routes>
@@ -51,18 +52,18 @@ function App() {
      
 
      <div className="footer-container">
-      <div className="footer-item">
-      <p>Serving the community since 1955</p>
+      <div className="footer-item flex flex-col text-s justify-start p-4">
+      <p>Member of the community since 1955</p>
       <p>Tulelake, Calfornia Phone: <a href="tel:15355551234">(535) 555-1234</a></p>
       <p>Macdoel, California <a href="tel:15355551234">(535) 555-1234</a></p>
       <p>Susanville, California  <a href="tel:15302546867">(530) 254-6867</a></p>
       </div>
 
-      <div className="footer-item">
+      <div className="footer-item flex flex-col text-s justify-start p-4">
       <p>Specializing In:</p>
       <p>Trees and Large Growth boundaries</p>
       <p>Commercial Nursery Supply</p>
-      <p>Hard To Find Plants</p>
+      <p>Exotic Plants</p>
       </div>
       </div>
 

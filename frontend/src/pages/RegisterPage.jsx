@@ -42,15 +42,15 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="auth-container">
+    <div className="auth-container flex items-center mt-[15px] border border-[color:var(--secondary-brown)] rounded-[var(--border-radius)] p-4">
       <h2>Register</h2>
       {error && <p className="error">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="firstName" placeholder="First Name" onChange={handleChange} required />
-        <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} required />
+<form className="formSubmit grid grid-cols-3 gap-2 items-center mt-[15px] border border-[color:var(--secondary-brown)] rounded-[var(--border-radius)] p-4" onSubmit={handleSubmit}>
+        <input className="inputFirstName border border-[color:var(--secondary-brown)] rounded-[var(--border-radius)] p-4" type="text" name="firstName" placeholder="First Name" onChange={handleChange} required />
+        <input className="inputLastName border border-[color:var(--secondary-brown)] rounded-[var(--border-radius)] p-4 ml-2" type="text" name="lastName" placeholder="Last Name" onChange={handleChange} required />
+        <input className="inputEmail border border-[color:var(--secondary-brown)] rounded-[var(--border-radius)] p-4 ml-2" type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        <input className="inputPassword border border-[color:var(--secondary-brown)] rounded-[var(--border-radius)] p-4" type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <input className="inputConfirmPass border border-[color:var(--secondary-brown)] rounded-[var(--border-radius)] p-4 ml-2" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} required />
         <button type="submit">Register</button>
       </form>
 

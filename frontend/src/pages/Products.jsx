@@ -1,29 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import Chinesse_Plum_Blossom from "./../assets/images/products/Chinesse_Plum_Blossom.jpg"
-import IMPATIENS_wallariana from "./../assets/images/products/IMPATIENS_walleriana.jpg"
-import "./../assets/images/products/Nicotiana.jpg"
-import "./../assets/images/products/Sarracenia_leucophylla.jpg"
+import { useState, useEffect } from "react";
 
+const ProductGallery = ({ images, onImageChange }) => {
+  const [index, setIndex] = useState(0);
 
-const ProductPage = () => {
-  const [selectedSize, setSelectedSize] = useState('S');
-  const [selectedPrice, setSelectedPrice] = useState(10);
+  const nextImage = () => {
+    const newIndex = (index + 1) % images.length;
+    setIndex(newIndex);
+    onImageChange(images[newIndex]); // ✅ Updates product details
+  };
+
+  const prevImage = () => {
+    const newIndex = (index - 1 + images.length) % images.length;
+    setIndex(newIndex);
+    onImageChange(images[newIndex]); // ✅ Updates product details
+  };
+
+  return (
+    <div>
+      <img src={images[index]} alt={`Product Image ${index + 1}`} />
+      <button onClick={prevImage}>← Prev</button>
+      <button onClick={nextImage}>Next →</button>
+    </div>
+  );
+};
+
+const CategoryFilter = ({ setSelectedCategory }) => {
+  const categoryData = {
+    Desert: ["Cacti", "Succulents", "Dry Flowers"],
+    Mountain: ["Evergreens", "Alpine Flowers"],
+    Tropical: ["Palms", "Orchids", "Ferns"],
+    Forest: ["Maples", "Pine", "Birch"]
+  };
+
+  const [selectedCategory, setCategory] = useState("");
+  const [selectedSubcategory, setSubcategory] = useState("");
+
+  return (
+    <>
+      <select onChange={(e) => { setCategory(e.target.value); setSelectedCategory(e.target.value); }}>
+        <option value="">Select Category</option>
+        {Object.keys(categoryData).map(cat => (
+          <option key={cat} value={cat}>{cat}</option>
+        ))}
+      </select>
+
+      {selectedCategory && (
+        <select onChange={(e) => setSubcategory(e.target.value)}>
+          <option value="">Select Subcategory</option>
+          {categoryData[selectedCategory].map(subcat => (
+            <option key={subcat} value={subcat}>{subcat}</option>
+          ))}
+        </select>
+      )}
+    </>
+  );
+};
+
+const Products = () => {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [products, setProducts] = useState([]);
+  const [selectedProductIndex, setSelectedProductIndex] = useState(0);
+  const [selectedPrice, setSelectedPrice] = useState(0);
   const [selectedQty, setSelectedQty] = useState(1);
   const [totalPrice, setTotalPrice] = useState(selectedPrice * selectedQty);
 
-  const handleSizeChange = (e) => {
-    setSelectedSize(e.target.value);
-    if (e.target.value === 'S') {
-      setSelectedPrice(10);
-    } else if (e.target.value === 'M') {
-      setSelectedPrice(15);
-    } else if (e.target.value === 'L') {
-      setSelectedPrice(20);
-    }
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch(`/api/products?category=${selectedCategory}`);
+      const data = await response.json();
+      setProducts(data.length > 0 ? data : []); // ✅ Ensures no errors on empty response
+    };
+    fetchProducts();
+  }, [selectedCategory]);
+
+
+  // ✅ Ensures clean selection after category switch
+  useEffect(() => {
+    setSelectedProductIndex(0);
+  }, [selectedCategory]);
+
+
+  const handleProductSelect = (index) => {
+    setSelectedProductIndex(index);
+    setSelectedPrice(products[index]?.price || 0);
   };
 
-  const handleQtyChange = (e) => {
-    setSelectedQty(e.target.value);
+  const handleImageChange = (newImage, index) => {
+    setSelectedPrice(products[selectedProductIndex]?.price || 0); // ✅ Pull price from DB or 0
   };
 
   useEffect(() => {
@@ -31,40 +94,47 @@ const ProductPage = () => {
   }, [selectedPrice, selectedQty]);
 
   return (
-    <div className="product-page">
-      <div className="product-image-container" style={{ marginLeft: "10px" }}>
-        <img
-          className="plum-blossom"
-          src={Chinesse_Plum_Blossom}
-          alt="Product Image"
-          marginLeft="10px"
-          move-right="150px"
-          style={{ transform: "scale(0.8)" }}
-        />
-        <img src={IMPATIENS_wallariana} alt="Product Image" style={{ transform: "scale(0.4)" }} />
+    <div>
+      {/* <h1 className="font-Playfair text-xl my-4.5">Product Gallery</h1> */}
+      <h1
+  style={{ fontFamily: 'var(--font-main)', fontSize: 'var(--font-size-titles)' }}
+  className="my-8"
+>
+  Product Gallery
+</h1>
+
+      {/* ✅ Category Filter */}
+      <CategoryFilter setSelectedCategory={setSelectedCategory} />
+
+      {/* ✅ Products List */}
+      <div>
+        {products.map((product, idx) => (
+          <button key={product.id || idx} onClick={() => handleProductSelect(idx)}>
+            {product.name || `Product ${idx + 1}`}
+          </button>
+        ))}
       </div>
-      <div className="product-details">
-        <h1>Plum Blossom and IMPATIENS</h1>
-        <p>Price: ${selectedPrice}</p>
-        <label htmlFor="size-select">Size:</label>
-        <select id="size-select" value={selectedSize} onChange={handleSizeChange}>
-          <option value="S">Small</option>
-          <option value="M">Medium</option>
-          <option value="L">Large</option>
-        </select>
-        <label htmlFor="qty-select">Quantity:</label>
-        <select id="qty-select" value={selectedQty} onChange={handleQtyChange}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        <p>Total Price: ${totalPrice}</p>
-        <button>Add to Cart</button>
-      </div>
+
+      {/* ✅ Product Details */}
+      {products.length > 0 && products[selectedProductIndex]?.images && (
+        <div>
+          <ProductGallery images={products[selectedProductIndex].images} onImageChange={handleImageChange} />
+          <h2>{products[selectedProductIndex]?.name}</h2>
+          <p>Price: ${selectedPrice}</p>
+
+          <label htmlFor="qty-select">Quantity:</label>
+          <select id="qty-select" value={selectedQty} onChange={(e) => setSelectedQty(Number(e.target.value))}>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+
+          <p>Total Price: ${totalPrice}</p>
+          <button>Add to Cart</button>
+        </div>
+      )}
     </div>
   );
 };
 
-export default ProductPage;
+export default Products;

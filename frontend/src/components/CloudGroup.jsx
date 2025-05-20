@@ -4,10 +4,10 @@ import FluffyCloud from './FluffyCloud';
 
 const CloudGroup = () => {
   return (
-    <div style={{ position: 'relative', width: '250px', height: '120px' }}> {/* Adjust width and height */}
-      <FluffyCloud style={{ top: '60%', left: '10%', width: '80px', height: '50px' }} /> {/* Bottom left */}
-      <FluffyCloud style={{ top: '60%', left: '50%', width: '100px', height: '60px' }} /> {/* Bottom right */}
-      <FluffyCloud style={{ top: '20%', left: '30%', width: '120px', height: '70px' }} /> {/* Top center */}
+    <div style={{ position: 'relative', width: '250px', height: '120px' }}>
+      <FluffyCloud style={{ top: '50%', left: '10%', width: '80px', height: '50px' }} /> {/* First cloud */}
+      <FluffyCloud style={{ top: '65%', left: '40%', width: '90px', height: '55px' }} /> {/* Second cloud, right and lower */}
+      <FluffyCloud style={{ top: '30%', left: '25%', width: '100px', height: '60px' }} /> {/* Third cloud, on top */}
     </div>
   );
 };

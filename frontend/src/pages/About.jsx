@@ -4,7 +4,7 @@ import workersImg from '../assets/images/workers.png';
 import workersImg2 from '../assets/images/worker2.webp';
 import workersImg3 from '../assets/images/worker3.webp';
 import FluffyCloud from '../components/FluffyCloud';
-
+import CloudGroup from '../components/CloudGroup';
 
 import { motion } from 'framer-motion';
 
@@ -36,7 +36,7 @@ export { SunMoon };
 const CloudAnim = () => {
   return (
     <div style={{ position: 'relative', height: '100vh', overflow: 'hidden', background: 'skyblue' }}>
-      <FluffyCloud />
+      <CloudGroup />
       <FluffyCloud style={{ top: '30%', left: '5%' }} /> {/* Add more clouds with different positions */}
       <FluffyCloud style={{ top: '40%', left: '5%' }} />
     </div>
@@ -57,7 +57,7 @@ function About() {
 </h1>
 <SunMoon />
 <div className="about-company">
-        <p className="self-stretch">
+        <p className="self-stretc text-justify">
           At Sierra-Cascade Nursery, Inc. (SCN), our core purpose is to provide meaningful livelihoods for talented and hardworking individuals and their families. We are dedicated to serving our customers with high-quality products while stewarding the land in a way that is both beautiful and sustainable.
           SCN is built on three fundamental values:
           - Work & Life Balance – Supporting our employees as they strive for both professional excellence and personal well-being.
@@ -72,7 +72,7 @@ function About() {
    
       </div>
       <FluffyCloud />
-      <div className="about-images">
+      <div className="about-images mt-15">
         <FluffyCloud />
         <FluffyCloud />
         <FluffyCloud />
