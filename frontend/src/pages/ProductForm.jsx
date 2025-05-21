@@ -45,10 +45,68 @@ const ProductForm = ({ onProductAdded }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" name="title" placeholder="Product Title" onChange={handleChange} required />
-      <textarea name="description" placeholder="Description" onChange={handleChange} required />
-      <input type="number" name="price" placeholder="Price" onChange={handleChange} required />
-      <input type="file" multiple accept="image/*" onChange={handleImageUpload} />
+      {/* Generic fill-in field (text) */}
+      <input
+        type="text"
+        name="name"
+        placeholder="Product Name"
+        onChange={handleChange}
+        required
+      />
+
+      {/* Dropdown (select) */}
+      <select name="category" onChange={handleChange} required>
+        <option value="">Select Category</option>
+        <option value="Dessert">Desert</option>
+        <option value="mountain">Mountain</option>
+        <option value="tropical">Tropical</option>
+        <option value="forest">Forest</option>  
+      </select>
+
+      {/* Currency (number, step for cents) */}
+         <label>
+        Price
+      <input
+        type="number"
+        name="price"
+        placeholder="Price"
+        step="0.01"
+        min="0"
+        onChange={handleChange}
+        required
+      />
+      </label>
+
+      {/* Number (integer) */}
+      <label>
+        Stock
+        <input
+          type="number"
+          name="stock"
+          placeholder="Qty in Stock"
+          min="0"
+          onChange={handleChange}
+        />
+      </label>
+
+      {/* Active yes/no to list on product list */}
+      <label>
+        List in Catalog?
+        <select name="active" onChange={handleChange} required>
+          <option value="">Select</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </label>
+
+      {/* Images */}
+      <input
+        type="file"
+        multiple
+        accept="image/*"
+        onChange={handleImageUpload}
+      />
+
       <button type="submit">Submit Product</button>
       {errorMessage && <p className="error">{errorMessage}</p>}
     </form>
