@@ -1,61 +1,56 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
-const ProductForm = () => {
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [subcategory, setSubcategory] = useState("");
-  const [price, setPrice] = useState(0);
-  const [stock, setStock] = useState(0);
-  const [images, setImages] = useState([]);
+const ProductForm = ({ onProductAdded }) => {
+  const [formData, setFormData] = useState({ title: "", description: "", price: "", images: [] });
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleImageUpload = (e) => {
+    const imageFiles = Array.from(e.target.files);
+    setFormData({ ...formData, images: imageFiles });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("/api/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, category, subcategory, price, stock, images }),
-    });
+    try {
+      setErrorMessage("");
+      
+      // Send product data first
+      const productResponse = await axios.post("/api/products", {
+        title: formData.title,
+        description: formData.description,
+        price: formData.price
+      });
 
-    if (response.ok) {
-      alert("✅ Product added successfully!");
-    } else {
-      alert("❌ Failed to add product!");
+      const productId = productResponse.data._id;
+      if (!productId) throw new Error("Failed to create product.");
+
+      // Upload images to Cloudinary after product creation
+      if (formData.images.length > 0) {
+        const imageData = new FormData();
+        formData.images.forEach(image => imageData.append("images", image));
+        const imageResponse = await axios.post(`/api/upload/${productId}`, imageData);
+        await axios.put(`/api/products/${productId}`, { images: imageResponse.data });
+      }
+
+      onProductAdded(); // ✅ Refresh products in Products.jsx after submission
+    } catch (error) {
+      setErrorMessage("Error submitting product.");
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Product Name:</label>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-
-      <label>Category:</label>
-      <select value={category} onChange={(e) => setCategory(e.target.value)} required>
-        <option value="">Select Category</option>
-        <option value="Desert">Desert</option>
-        <option value="Mountain">Mountain</option>
-        <option value="Tropical">Tropical</option>
-        <option value="Forest">Forest</option>
-      </select>
-
-      {category && (
-        <>
-          <label>Subcategory:</label>
-          <select value={subcategory} onChange={(e) => setSubcategory(e.target.value)} required>
-            {category === "Desert" && <option value="Cacti">Cacti</option>}
-            {category === "Mountain" && <option value="Evergreens">Evergreens</option>}
-            {category === "Tropical" && <option value="Palms">Palms</option>}
-            {category === "Forest" && <option value="Maples">Maples</option>}
-          </select>
-        </>
-      )}
-
-      <label>Price ($):</label>
-      <input type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} required />
-
-      <label>Stock:</label>
-      <input type="number" value={stock} onChange={(e) => setStock(Number(e.target.value))} required />
-
-      <button type="submit">Add Product</button>
+      <input type="text" name="title" placeholder="Product Title" onChange={handleChange} required />
+      <textarea name="description" placeholder="Description" onChange={handleChange} required />
+      <input type="number" name="price" placeholder="Price" onChange={handleChange} required />
+      <input type="file" multiple accept="image/*" onChange={handleImageUpload} />
+      <button type="submit">Submit Product</button>
+      {errorMessage && <p className="error">{errorMessage}</p>}
     </form>
   );
 };

@@ -1,28 +1,6 @@
 import { useState, useEffect } from "react";
-
-const ProductGallery = ({ images, onImageChange }) => {
-  const [index, setIndex] = useState(0);
-
-  const nextImage = () => {
-    const newIndex = (index + 1) % images.length;
-    setIndex(newIndex);
-    onImageChange(images[newIndex]); // ✅ Updates product details
-  };
-
-  const prevImage = () => {
-    const newIndex = (index - 1 + images.length) % images.length;
-    setIndex(newIndex);
-    onImageChange(images[newIndex]); // ✅ Updates product details
-  };
-
-  return (
-    <div>
-      <img src={images[index]} alt={`Product Image ${index + 1}`} />
-      <button onClick={prevImage}>← Prev</button>
-      <button onClick={nextImage}>Next →</button>
-    </div>
-  );
-};
+import ProductForm from "./ProductForm"; // ✅ Import the product form
+import ProductGallery from "../components/ProductGallery"; // ✅ Import ProductGallery component
 
 const CategoryFilter = ({ setSelectedCategory }) => {
   const categoryData = {
@@ -62,54 +40,57 @@ const Products = () => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [selectedQty, setSelectedQty] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(selectedPrice * selectedQty);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [loading, setLoading] = useState(false); // ✅ Added loading state for UX improvement
 
-  useEffect(() => {
-    const fetchProducts = async () => {
+  const fetchProducts = async () => {
+    setLoading(true); // ✅ Show loading while fetching
+    try {
       const response = await fetch(`/api/products?category=${selectedCategory}`);
       const data = await response.json();
-      setProducts(data.length > 0 ? data : []); // ✅ Ensures no errors on empty response
-    };
+      setProducts(data.length > 0 ? data : []);
+    } catch (error) {
+      console.error("Failed to fetch products", error);
+    } finally {
+      setLoading(false); // ✅ Hide loading after fetch
+    }
+  };
+
+  useEffect(() => {
     fetchProducts();
   }, [selectedCategory]);
 
+  const handleProductAdded = () => {
+    fetchProducts(); // ✅ Refresh product list after a new one is added
+  };
 
-  // ✅ Ensures clean selection after category switch
   useEffect(() => {
     setSelectedProductIndex(0);
   }, [selectedCategory]);
 
-
-  const handleProductSelect = (index) => {
-    setSelectedProductIndex(index);
-    setSelectedPrice(products[index]?.price || 0);
-  };
-
-  const handleImageChange = (newImage, index) => {
-    setSelectedPrice(products[selectedProductIndex]?.price || 0); // ✅ Pull price from DB or 0
-  };
-
   useEffect(() => {
     setTotalPrice(selectedPrice * selectedQty);
-  }, [selectedPrice, selectedQty]);
+  }, [selectedPrice, selectedQty]); // ✅ Ensure total price updates dynamically
 
   return (
     <div>
-      {/* <h1 className="font-Playfair text-xl my-4.5">Product Gallery</h1> */}
-      <h1
-  style={{ fontFamily: 'var(--font-main)', fontSize: 'var(--font-size-titles)' }}
-  className="my-8"
->
-  Product Gallery
-</h1>
+      <h1 style={{ fontFamily: 'var(--font-main)', fontSize: 'var(--font-size-titles)' }} className="my-8">
+        Product Gallery
+      </h1>
+
+      {/* ✅ Product Form (For Adding New Products) */}
+      <ProductForm onProductAdded={handleProductAdded} />
 
       {/* ✅ Category Filter */}
       <CategoryFilter setSelectedCategory={setSelectedCategory} />
 
+      {/* ✅ Show loading indicator while fetching products */}
+      {loading ? <p>Loading products...</p> : null}
+
       {/* ✅ Products List */}
       <div>
         {products.map((product, idx) => (
-          <button key={product.id || idx} onClick={() => handleProductSelect(idx)}>
+          <button key={product.id || idx} onClick={() => setSelectedProductIndex(idx)}>
             {product.name || `Product ${idx + 1}`}
           </button>
         ))}
@@ -118,7 +99,7 @@ const Products = () => {
       {/* ✅ Product Details */}
       {products.length > 0 && products[selectedProductIndex]?.images && (
         <div>
-          <ProductGallery images={products[selectedProductIndex].images} onImageChange={handleImageChange} />
+          <ProductGallery images={products[selectedProductIndex].images} onImageChange={() => setSelectedPrice(products[selectedProductIndex]?.price || 0)} />
           <h2>{products[selectedProductIndex]?.name}</h2>
           <p>Price: ${selectedPrice}</p>
 

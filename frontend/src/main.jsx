@@ -6,7 +6,11 @@ import App from "./App.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { UserProvider } from "./context/UserContext.jsx";
 
-createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root");
+
+// Ensure root is only created once
+const root = createRoot(rootElement);
+root.render(
   <BrowserRouter>
     <StrictMode>
       <AuthProvider>

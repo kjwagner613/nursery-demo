@@ -23,6 +23,7 @@ const NavBar = () => {
             <li><Link to="/pages/about">About Us</Link></li>
             <li><Link to="/pages/services">Services</Link></li>
             <li><Link to="/pages/products">Products</Link></li>
+            <li><Link to="/pages/productform">Add Products</Link></li>
             <li><Link to="/pages/contact">Contact Us</Link></li>
             <li><Link to="/" onClick={handleSignOut}>Sign Out</Link></li>
           </ul>
